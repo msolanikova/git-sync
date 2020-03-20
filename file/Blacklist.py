@@ -20,7 +20,19 @@ class Blacklist:
         with open(self.file) as f:
             content = f.readlines()
 
-        return [self.__process_line(line) for line in content if line and not line.startswith("#")]
+        blacklisted_folders = [self.__process_line(line) for line in content if line and not line.startswith("#") and not line.startswith("DIR ")]
+        for line in content:
+            if line.startswith("DIR "):
+                path = line.replace("DIR ", '').replace(os.linesep, '').replace('\n', '')
+                if os.path.exists(path) and os.path.isdir(path):
+                    for dir in os.listdir(path):
+                        fullDir = os.path.join(path, dir)
+                        if os.path.isdir(fullDir):
+                            blacklisted_folders.append(OsUtils.norm(fullDir))
+                else:
+                    logging.info("Path [%s] does not exist or is not a directory", path)
+
+        return blacklisted_folders
 
     def __process_line(self, line):
         return OsUtils.norm(line.replace(os.linesep, '').replace('\n', ''))
