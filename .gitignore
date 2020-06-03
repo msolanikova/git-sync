@@ -2,3 +2,5 @@
 **/__pycache__/*
 sync_all_repos.bat
 blacklist.txt
+/blacklist.txt
+/sync_all_repos.bat
