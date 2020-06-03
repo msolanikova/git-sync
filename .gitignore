@@ -1,2 +1,4 @@
 **/.idea/*
 **/__pycache__/*
+sync_all_repos.bat
+blacklist.txt
