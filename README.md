@@ -12,19 +12,21 @@ Local application that discovers all git repositories within given base folder a
 
 ## How to configure git repositories for no password?
 * each repository should be cloned using ssh protocol instead of https. For existing repositories this can be updated e.g. in SourceTree. 
-    * Example: `git@bitbucket.org:msolanikova/gitsync.git`
+    * Example: `git@github.com:msolanikova/gitsync.git`
 * new ssh keys have to be generated
     * use [puttygen.exe](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) 
     * or SourceTree (Tools -> Create or Import SSH keys)
 * store private key on disk 
     * don't forget to protect it with a password - Key passphrase
-* copy public key part and import it to stash / bitbucket
+* copy public key part and import it to git provider
     * SSH keys are located in user profile / manage account section
 * start [pageant.exe](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) and load previously generated private key
 
 [Note] windows users neeed to create new **user environment variable** called **GIT_SSH** where value needs to be path to [plink.exe](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)   
 
 [Note] pageant.exe with loaded keys needs to be running when syncing git repositories
+
+[Note] when using multiple accounts to same git provider (e.g. multiple github accounts), [configure sessions in putty](https://blog.craigtp.co.uk/Post/2016/11/21/Using_multiple_SSH_keys_for_a_single_host_with_PuTTY_and_Pageant) with related ssh keys, but name them differenty. E.g. `github.com` and `github-private`. Use the proper session name in the remote url when cloning repo, e.g. `git@github-private:msolanikova/gitsync.git`
 
 
 ## How to use it
@@ -54,14 +56,14 @@ By default, system will try to load blacklist.txt located at the same directory 
 In following example, two repository folders will be blacklisted:
 ```
 # list of all git repositories folders NOT to sync
-c:\Development\GitRepos\repository1\
-c:\Development\GitRepos\repository2
+c:\all-my-other-git-repos\somefolder\git-repo-folder
+c:\all-my-other-git-repos\somefolder\other-git-repo-folder
 
 ```  
 
 It's also possible to blacklist whole folder by adding `DIR` to the beginning of the line:
 ```
 # list of directories NOT to sync
-DIR d:\Development\GitRepos\others\
+DIR c:\all-my-private-git-repos\
 
 ``` 

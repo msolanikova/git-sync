@@ -1,6 +1,6 @@
 # list of all git repositories folders NOT to sync
-#d:\allmygitrepos\somefolder\git-repo-folder
-#d:\allmygitrepos\somefolder\other-git-repo-folder
+#c:\allmygitrepos\somefolder\git-repo-folder
+#c:\allmygitrepos\somefolder\other-git-repo-folder
 
 # List of directories with git repos
 #DIR c:\allmyprivategitrepos\
