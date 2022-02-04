@@ -19,10 +19,15 @@ class GitRepoOperations:
         """ Execute git pull on local repository folder """
 
         repo = Repo(repo_folder)
-        logging.debug("Going to pull %s", repo)
+        logging.debug("Going to pull %s", repo_folder)
         try:
+            if len(repo.remotes) == 0:
+                logging.warn("Repo %s doesn't have any remote; cannot sync", repo_folder)
+                return
+                
             repo.remotes.origin.pull()
-            logging.info("Repo %s synced successfully", repo)
+            logging.info("Repo %s synced successfully", repo_folder)
+                
         except GitCommandError as err:
-            logging.error("Git error on repo %s: %s", repo, err)
+            logging.error("Git error on repo %s: %s", repo_folder, err)
 
